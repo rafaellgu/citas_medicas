@@ -46,4 +46,11 @@ class Cita(db.Model):
     paciente_id = db.Column(db.Integer, db.ForeignKey("pacientes.id"))
     Medico_id = db.Column(db.Integer, db.ForeignKey("medicos.id"))
     consultorio_id = db.Column(db.Integer, db.ForeignKey("consultorios.id"))
+    valor= db.Column(db.Integer)
     
+    
+
+'''
+for ci in Cita.query.all():
+...     print("fecha: " + str(c1.fecha) + " paciente: " + str(ci.paciente.numero_identificacion) + " paciente nombre: " + ci.paciente.nombre + " paciente  apellido: " + ci.paciente.apellidos  + " registro medico: " + str(ci.medico.registro_medico) + " consultorio " + str(ci.consultorio.numero) + " valor cita: "+ str(ci.valor))
+'''
