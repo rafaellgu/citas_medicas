@@ -14,6 +14,9 @@ app.config.from_object(Config)
 #objeto SQLALchemy 
 db = SQLAlchemy(app)
 
+#importar las rutas
+from . import routes
+
 #ibjeto para las migraciones 
 migrate = Migrate(app , db)
 
