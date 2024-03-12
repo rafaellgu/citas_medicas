@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Medicos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <h1> Lista de Medicos</h1>
@@ -16,9 +17,10 @@
                 <th>numero_identificacion</th>
                 <th>registro_medico</th>
                 <th>especialidad</th>
+                <th>ver detalles</th>
             </tr>
         </thead>
-        <tbody>
+        <tbodys>
             {% for medico in medicos %}
                 <tr>
                     <td> {{ medico.nombre }} </td>
@@ -27,6 +29,11 @@
                     <td>{{medico.numero_identificacion}}</td>
                     <td>{{medico.registro_medico}}</td>
                     <td>{{medico.especialidad}}</td>
+                    <td>
+                        <a href="/medicos/{{ medico.id }}">
+                            ver detalles
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

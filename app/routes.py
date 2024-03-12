@@ -1,6 +1,6 @@
-from  . import app
+from  . import app, db
 from .models import Medico, Paciente, Consultorio, Cita 
-from flask import render_template
+from flask import render_template, request
 
 #crear ruta para ver el listado de los medicos 
 @app.route("/medicos")
@@ -22,3 +22,55 @@ def get_all_pacientes():
 def get_all_citas():
     citas = Cita.query.all()
     return render_template("citase.html" , citas=citas )
+
+#crear ruta traer el medico por id (get)
+@app.route("/medicos/<int:id>")
+def get_medico_by_id(id):
+    #return "id del medico:" + str(id)
+    #taer el medico ppo id utilizando la entidad Medico
+    medico = Medico.query.get(id)
+    #y meterlo a una vista
+    return render_template("medico.html", 
+                           med = medico)
+
+@app.route("/paciente/<int:id>")
+def get_paciente_by_id(id):
+    #return "id del medico:" + str(id)
+    #taer el medico ppo id utilizando la entidad Medico
+    paciente = Paciente.query.get(id)
+    #y meterlo a una vista
+    return render_template("paciente.html", 
+                           p = Paciente)
+
+#crear una ruta para crear nuevo medico 
+@app.route("/medico/create", methods =['GET', 'POST'])
+def crate_medico():
+    #mostrar el formulario: metodo GET
+    if( request.method == 'GET' ):
+        #el usuario ingreso con navegador con http://localhost:5000/medicos/create
+        especialidades = [
+            "Cardiologia",
+            "Pediatria",
+            "Ontologia"
+        ]
+        return render_template("medico_form.html", 
+                                especialidades = especialidades )
+    
+    ##cuando el usuario presiona el boton de guardar
+    ## los datos del formulario viaja al servidor 
+    ##utilizando el metodo POST
+    elif(request.method == 'POST'):
+        #cuando se presiona'guardar'
+        #crear un objeto de tipo medico 
+        new_medico = Medico(nombre = request.form ["nombre"],
+                            apellidos = request.form["apellidos"],
+                            tipo_identificacion = request.form["ti"],
+                            numero_identificacion = request.form["ni"],
+                            registro_medico = request.form["rm"],
+                            especialidad = request.form["es"]
+                            )
+        #añadirlo a la sesion sqllchemy
+        db.session.add(new_medico)
+        db.session.commit()
+        return "medico registrado"
+        
