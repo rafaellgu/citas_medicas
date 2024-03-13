@@ -8,9 +8,9 @@
 </head>
 <body>
     <h1> Lista de Pacientes</h1>
-    <table>
+    <table class="table table-stiped table-bordered table-danger">
         <thead>
-            <tr>
+            <tr class="table table-primary">
                 <th>Nombre</th>
                 <th>Apellidos</th>
                 <th>tipo_identificacion</th>
@@ -30,7 +30,7 @@
                     <td>{{ paciente.altura }}</td>
                     <td>{{ paciente.tipo_sangre }}</td>
                     <td>
-                        <a href="/paciente/{{ paciente.id }}">
+                        <a href="/pacientes/{{ paciente.id }}">
                             ver detalles
                         </a>
                     </td>
