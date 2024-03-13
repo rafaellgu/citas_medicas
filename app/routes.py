@@ -43,7 +43,7 @@ def get_paciente_by_id(id):
                            p = Paciente)
 
 #crear una ruta para crear nuevo medico 
-@app.route("/medico/create", methods =['GET', 'POST'])
+@app.route("/medicos/create", methods =['GET', 'POST'])
 def crate_medico():
     #mostrar el formulario: metodo GET
     if( request.method == 'GET' ):
@@ -73,4 +73,61 @@ def crate_medico():
         db.session.add(new_medico)
         db.session.commit()
         return "medico registrado"
+       
+@app.route("/pacientes/create", methods =['GET', 'POST'])
+def create_paciente():
+    if( request.method == 'GET' ):
+        #el usuario ingreso con navegador con http://localhost:5000/pacientes/create
+        tipos_sangre = [
+            "A+",
+            "O+",
+            "B+",
+            "AB+",
+            "A-",
+            "O-",
+            "AB-"
+            ]
+        return render_template("paciente_form.html", 
+                                tipos_sangre = tipos_sangre )
+    elif(request.method == 'POST' ):  
+        new_paciente=Paciente(nombre = request.form ["nombre"],
+                            apellidos = request.form["apellidos"],
+                            tipo_identificacion = request.form["ti"],
+                            numero_identificacion = request.form["ni"],
+                            altura = request.form["al"],
+                            tipo_sangre = request.form["ts"]
+                            )
         
+                
+        db.session.add(new_paciente)
+        db.session.commit()
+        return "paciente registado"
+    
+    
+@app.route("/consultorios/create", methods =['GET', 'POST'])
+def create_consultorio():
+    if( request.method == 'GET' ):
+        #el usuario ingreso con navegador con http://localhost:5000/consultorios/create
+        consultorios=[
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "310",
+            "311",
+            "312"
+            ]
+        return render_template("consultorio_form.html",
+                           consultorios=consultorios)
+    
+    elif(request.method =='POST'):
+        new_consultorio=Consultorio(numero = request.form ["numero"])
+
+        db.session.add(new_consultorio)
+        db.session.commit()
+        return "consultorio registrado"
